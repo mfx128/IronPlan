@@ -429,10 +429,6 @@
                                     <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
                                     <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Keep hips pinned to pad. Pre-exhausts hams to save CNS for RDLs.</p>
                                 </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Seated Leg Curls.</p>
-                                </div>
                             </div>
                             <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 3-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
                         </div>
@@ -497,7 +493,7 @@
                                 <div class="flex items-start gap-2">
                                     <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
                                     <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Focus on max contraction at the top. Squeeze pecs intentionally.</p>
-                                end
+                                </div>
                                 <div class="flex items-start gap-2">
                                     <i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
                                     <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Flat Bench Press or Flat DB Press.</p>
@@ -851,7 +847,7 @@
                     const savedId = localStorage.getItem('ironAccordion_' + type);
                     if (savedId) {
                         const prefix = type === 'w' ? 'content-w-' : type === 'c' ? 'content-c-' : 'content-p-';
-                        const iconPrefix = type === 'w' ? 'icon-w-' : type === 'c' ? 'icon-p-';
+                        const iconPrefix = type === 'w' ? 'icon-w-' : type === 'c' ? 'icon-c-' : 'icon-p-';
                         const content = document.getElementById(prefix + savedId);
                         const icon = document.getElementById(iconPrefix + savedId);
                         if (content && icon) {
@@ -866,7 +862,7 @@
         // ACCORDION LOGIC
         function toggleAccordion(type, id) {
             let prefix = type === 'w' ? 'content-w-' : type === 'c' ? 'content-c-' : 'content-p-';
-            let iconPrefix = type === 'w' ? 'icon-w-' : type === 'c' ? 'icon-p-';
+            let iconPrefix = type === 'w' ? 'icon-w-' : type === 'c' ? 'icon-c-' : 'icon-p-';
             let openedId = null;
             
             for (let i = 1; i <= 6; i++) {
