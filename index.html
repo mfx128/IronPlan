@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iron Plan</title>
+    
+    <!-- PWA & Native Mobile Settings -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Iron Plan">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0a0a0a">
+    
+    <!-- Inline Manifest: Tells the phone this is an installable app -->
+    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Iron%20Plan%22%2C%22short_name%22%3A%22IronPlan%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230a0a0a%22%2C%22theme_color%22%3A%22%23e5ff00%22%7D">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
@@ -486,7 +497,7 @@
                                 <div class="flex items-start gap-2">
                                     <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
                                     <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Focus on max contraction at the top. Squeeze pecs intentionally.</p>
-                                </div>
+                                end
                                 <div class="flex items-start gap-2">
                                     <i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
                                     <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Flat Bench Press or Flat DB Press.</p>
@@ -513,16 +524,6 @@
                                 </div>
                             </div>
                             <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 3-0-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">90s Rest</span></div>
-                        </div>
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">High-to-Low Crossovers</p><span class="text-sm font-mono text-brand">3x15</span></div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Cross wrists at bottom to engage inner chest detail.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
                         </div>
                         <div class="border-t border-gray-800/80 pt-4">
                             <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Machine Side Raise</p><span class="text-sm font-mono text-brand">4x20</span></div>
@@ -828,7 +829,16 @@
         // APP INITIALIZATION & LOCAL STORAGE
         document.addEventListener("DOMContentLoaded", () => {
             restoreSessionState();
+            registerServiceWorker();
         });
+
+        function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Offline service worker active.', reg))
+                    .catch(err => console.warn('Service worker setup failed.', err));
+            }
+        }
 
         function restoreSessionState() {
             // Restore active tab
@@ -841,7 +851,7 @@
                     const savedId = localStorage.getItem('ironAccordion_' + type);
                     if (savedId) {
                         const prefix = type === 'w' ? 'content-w-' : type === 'c' ? 'content-c-' : 'content-p-';
-                        const iconPrefix = type === 'w' ? 'icon-w-' : type === 'c' ? 'icon-c-' : 'icon-p-';
+                        const iconPrefix = type === 'w' ? 'icon-w-' : type === 'c' ? 'icon-p-';
                         const content = document.getElementById(prefix + savedId);
                         const icon = document.getElementById(iconPrefix + savedId);
                         if (content && icon) {
@@ -856,7 +866,7 @@
         // ACCORDION LOGIC
         function toggleAccordion(type, id) {
             let prefix = type === 'w' ? 'content-w-' : type === 'c' ? 'content-c-' : 'content-p-';
-            let iconPrefix = type === 'w' ? 'icon-w-' : type === 'c' ? 'icon-c-' : 'icon-p-';
+            let iconPrefix = type === 'w' ? 'icon-w-' : type === 'c' ? 'icon-p-';
             let openedId = null;
             
             for (let i = 1; i <= 6; i++) {
