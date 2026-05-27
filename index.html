@@ -4,16 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iron Plan</title>
-    
-    <!-- PWA & Native Mobile Settings -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Iron Plan">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#0a0a0a">
-    
     <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Iron%20Plan%22%2C%22short_name%22%3A%22IronPlan%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230a0a0a%22%2C%22theme_color%22%3A%22%23e5ff00%22%7D">
-
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
@@ -32,1040 +28,679 @@
     <style>
         body { background-color: #000; }
         ::-webkit-scrollbar { display: none; }
-        
-        .tab-content {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.2s ease-in-out;
-        }
-        .tab-content.active {
-            display: block;
-            opacity: 1;
-        }
-
+        .tab-content { display: none; opacity: 0; transition: opacity 0.2s ease-in-out; }
+        .tab-content.active { display: block; opacity: 1; }
         .accordion-content {
             transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out;
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
+            max-height: 0; opacity: 0; overflow: hidden;
         }
-        .accordion-content.expanded {
-            max-height: 5000px; 
-            opacity: 1;
-        }
-        .accordion-icon {
-            transition: transform 0.3s ease;
-        }
-        .accordion-icon.rotated {
-            transform: rotate(180deg);
-        }
-
-        /* Day badge pill */
-        .day-badge {
-            font-size: 9px;
-            font-weight: 800;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            padding: 2px 8px;
-            border-radius: 999px;
-        }
+        .accordion-content.expanded { max-height: 5000px; opacity: 1; }
+        .accordion-icon { transition: transform 0.3s ease; }
+        .accordion-icon.rotated { transform: rotate(180deg); }
     </style>
 </head>
 <body class="text-gray-100 font-sans antialiased flex justify-center bg-black">
 
-    <div class="w-full max-w-[430px] bg-dark min-h-screen relative shadow-2xl sm:rounded-3xl sm:my-8 sm:border sm:border-gray-800 overflow-hidden flex flex-col">
-        
-        <!-- Header -->
-        <div class="bg-card pt-6 border-b border-gray-800 sticky top-0 z-40 flex flex-col items-center shadow-lg relative">
-            <img src="image_dce9bb.png" alt="DMV Iron" class="h-8 mb-2 object-contain drop-shadow-[0_0_15px_rgba(229,255,0,0.15)]" onerror="this.src='https://placehold.co/200x60/171717/e5ff00?text=DMV+IRON&font=montserrat'">
-            <h1 class="text-xl font-black uppercase tracking-widest text-white mb-4">Iron Plan</h1>
-            
-            <div class="flex w-full px-1">
-                <button onclick="switchTab('warmup')" id="btn-warmup" class="flex-1 pb-3 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider border-b-2 border-brand text-brand transition-colors duration-200">Warm Up</button>
-                <button onclick="switchTab('workout')" id="btn-workout" class="flex-1 pb-3 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider border-b-2 border-transparent text-gray-500 hover:text-gray-300 transition-colors duration-200">Workout</button>
-                <button onclick="switchTab('cooldown')" id="btn-cooldown" class="flex-1 pb-3 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider border-b-2 border-transparent text-gray-500 hover:text-gray-300 transition-colors duration-200">Cool Down</button>
-                <button onclick="switchTab('meals')" id="btn-meals" class="flex-1 pb-3 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider border-b-2 border-transparent text-gray-500 hover:text-gray-300 transition-colors duration-200">Meals</button>
-            </div>
+<div class="w-full max-w-[430px] bg-dark min-h-screen relative shadow-2xl sm:rounded-3xl sm:my-8 sm:border sm:border-gray-800 overflow-hidden flex flex-col">
+
+    <!-- Header -->
+    <div class="bg-card pt-6 border-b border-gray-800 sticky top-0 z-40 flex flex-col items-center shadow-lg relative">
+        <img src="image_dce9bb.png" alt="DMV Iron" class="h-8 mb-2 object-contain drop-shadow-[0_0_15px_rgba(229,255,0,0.15)]" onerror="this.src='https://placehold.co/200x60/171717/e5ff00?text=DMV+IRON&font=montserrat'">
+        <h1 class="text-xl font-black uppercase tracking-widest text-white mb-4">Iron Plan</h1>
+        <div class="flex w-full px-1">
+            <button onclick="switchTab('warmup')" id="btn-warmup" class="flex-1 pb-3 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider border-b-2 border-brand text-brand transition-colors duration-200">Warm Up</button>
+            <button onclick="switchTab('workout')" id="btn-workout" class="flex-1 pb-3 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider border-b-2 border-transparent text-gray-500 hover:text-gray-300 transition-colors duration-200">Workout</button>
+            <button onclick="switchTab('cooldown')" id="btn-cooldown" class="flex-1 pb-3 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider border-b-2 border-transparent text-gray-500 hover:text-gray-300 transition-colors duration-200">Cool Down</button>
+            <button onclick="switchTab('meals')" id="btn-meals" class="flex-1 pb-3 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider border-b-2 border-transparent text-gray-500 hover:text-gray-300 transition-colors duration-200">Meals</button>
         </div>
-
-        <!-- Scrollable Content Area -->
-        <div id="scroll-container" class="flex-1 overflow-y-auto pb-12 relative z-10 scroll-smooth">
-
-            <!-- ===================== TAB 1: WARM UPS ===================== -->
-            <div id="tab-warmup" class="px-4 py-6 space-y-4 tab-content active">
-                <div class="bg-brand/10 border border-brand/30 rounded-xl p-3 flex gap-3 items-center mb-4">
-                    <i data-lucide="flame" class="text-brand w-6 h-6 shrink-0"></i>
-                    <p class="text-[10px] text-gray-300 leading-snug">
-                        <strong class="text-brand uppercase tracking-wider">CNS Priming:</strong> Flood muscles with blood and lubricate joints without fatigue. <br><strong class="text-brand mt-1 inline-block">Core Bonus:</strong> Add Planks or Bird-Dogs to any warmup for stability.
-                    </p>
-                </div>
-                <div class="space-y-3">
-
-                    <!-- Warmup Day 1 -->
-                    <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden">
-                        <button onclick="toggleAccordion('w', 1)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
-                            <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2">
-                                <i data-lucide="shield" class="w-4 h-4 text-brand"></i> Day 1: Chest & Triceps
-                            </span>
-                            <i data-lucide="chevron-down" id="icon-w-1" class="text-gray-500 w-4 h-4 accordion-icon"></i>
-                        </button>
-                        <div id="content-w-1" class="accordion-content px-4 pb-4 space-y-3 text-xs text-gray-400">
-                            <div class="border-t border-gray-800 pt-3"><strong class="text-white">Cardio:</strong> 5-10 Min Rower or Jump Rope — gets blood into the chest and shoulders.</div>
-                            <div><strong class="text-white">Mobility:</strong> Arm circles (forward + backward, 20 reps), Band pull-aparts (2×15), Doorway chest stretch (30s each side).</div>
-                            <div class="bg-dark p-2 rounded border border-brand/20"><strong class="text-brand">Acclimation:</strong> 2×15 Light pushups, then warm-up sets on incline press at 40% and 60% working weight before loading up. 2×15 external rotations with band.</div>
-                        </div>
-                    </div>
-
-                    <!-- Warmup Day 2 -->
-                    <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden">
-                        <button onclick="toggleAccordion('w', 2)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
-                            <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2">
-                                <i data-lucide="arrow-down-circle" class="w-4 h-4 text-blue-400"></i> Day 2: Back & Biceps
-                            </span>
-                            <i data-lucide="chevron-down" id="icon-w-2" class="text-gray-500 w-4 h-4 accordion-icon"></i>
-                        </button>
-                        <div id="content-w-2" class="accordion-content px-4 pb-4 space-y-3 text-xs text-gray-400">
-                            <div class="border-t border-gray-800 pt-3"><strong class="text-white">Cardio:</strong> 5-10 Min Rower (best for back activation) or Jump Rope.</div>
-                            <div><strong class="text-white">Mobility:</strong> Scapular pull-ups (2×10 dead hang shrugs), Band pull-aparts (2×15), Thoracic rotations (10/side).</div>
-                            <div class="bg-dark p-2 rounded border border-blue-500/20"><strong class="text-blue-400">Acclimation:</strong> 2 light sets of lat pulldowns (50% working weight) focusing on the stretch. YTWLs with light plates (2×10) to prime the entire posterior chain.</div>
-                        </div>
-                    </div>
-
-                    <!-- Warmup Day 3 -->
-                    <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden">
-                        <button onclick="toggleAccordion('w', 3)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
-                            <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2">
-                                <i data-lucide="activity" class="w-4 h-4 text-emerald-400"></i> Day 3: Full Legs
-                            </span>
-                            <i data-lucide="chevron-down" id="icon-w-3" class="text-gray-500 w-4 h-4 accordion-icon"></i>
-                        </button>
-                        <div id="content-w-3" class="accordion-content px-4 pb-4 space-y-3 text-xs text-gray-400">
-                            <div class="border-t border-gray-800 pt-3"><strong class="text-white">Cardio:</strong> 5-10 Min Bike or Incline Treadmill Walk. Gets legs warm without pre-fatiguing.</div>
-                            <div><strong class="text-white">Mobility:</strong> Dynamic leg swings (front/back + lateral, 15/side), Bodyweight squats (2×15), Walking lunges (10/leg), Pigeon pose hip opener (30s/side).</div>
-                            <div class="bg-dark p-2 rounded border border-emerald-500/20"><strong class="text-emerald-400">Acclimation:</strong> Bodyweight glute bridges (2×20), Ankle circles + calf raises (2×15), Light set on hack squat or leg press at 40% to groove the pattern before loading.</div>
-                        </div>
-                    </div>
-
-                    <!-- Warmup Day 4 -->
-                    <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden">
-                        <button onclick="toggleAccordion('w', 4)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
-                            <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2">
-                                <i data-lucide="triangle" class="w-4 h-4 text-purple-400"></i> Day 4: Shoulders & Arms
-                            </span>
-                            <i data-lucide="chevron-down" id="icon-w-4" class="text-gray-500 w-4 h-4 accordion-icon"></i>
-                        </button>
-                        <div id="content-w-4" class="accordion-content px-4 pb-4 space-y-3 text-xs text-gray-400">
-                            <div class="border-t border-gray-800 pt-3"><strong class="text-white">Cardio:</strong> 5-10 Min light cardio — bike works great here to not pre-fatigue upper body.</div>
-                            <div><strong class="text-white">Mobility:</strong> Arm circles (2×20 each direction), Y-T-W Raises with light plate (2×10), Band dislocates (2×15).</div>
-                            <div class="bg-dark p-2 rounded border border-purple-500/20"><strong class="text-purple-400">Acclimation:</strong> Light sets of lateral raises and overhead press to prime the rotator cuff. 2×15 External Rotations with band. Wrist flexor/extensor circles before arm work.</div>
-                        </div>
-                    </div>
-
-                    <!-- Warmup Day 5 -->
-                    <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden">
-                        <button onclick="toggleAccordion('w', 5)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
-                            <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2">
-                                <i data-lucide="heart-pulse" class="w-4 h-4 text-orange-400"></i> Day 5: Cardio & Core
-                            </span>
-                            <i data-lucide="chevron-down" id="icon-w-5" class="text-gray-500 w-4 h-4 accordion-icon"></i>
-                        </button>
-                        <div id="content-w-5" class="accordion-content px-4 pb-4 space-y-3 text-xs text-gray-400">
-                            <div class="border-t border-gray-800 pt-3"><strong class="text-white">Movement Prep:</strong> 5 Min easy walk, full-body dynamic stretch circuit — legs swings, arm circles, torso twists (10 reps each).</div>
-                            <div><strong class="text-white">Intent:</strong> This is an active recovery day. Light enough to increase blood flow and flush soreness — <em>not</em> a punishment session. Keep intensity conversational.</div>
-                            <div class="bg-dark p-2 rounded border border-orange-500/20"><strong class="text-orange-400">Note:</strong> No warmup sets needed — jump straight into steady state. Let your body guide the pace today.</div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- ===================== TAB 2: WORKOUT PLAN ===================== -->
-            <div id="tab-workout" class="px-4 py-6 space-y-4 tab-content">
-                
-                <div class="bg-brand/10 border border-brand/30 rounded-xl p-3 flex gap-3 items-center mb-2">
-                    <i data-lucide="info" class="text-brand w-6 h-6 shrink-0"></i>
-                    <p class="text-[10px] text-gray-300 leading-snug">
-                        <strong class="text-brand">Rest Guide:</strong> Density (High rep): 30-60s. Hypertrophy (Mod rep): 60-90s. Strength (Low rep/Heavy): 2-3 min. Supersets/Drop sets: 15-30s between exercises.
-                    </p>
-                </div>
-
-                <!-- ── D1: Chest & Triceps ── -->
-                <div class="bg-card rounded-2xl border border-gray-800/50 shadow-md overflow-hidden relative group">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none transition-opacity duration-300 opacity-50 group-hover:opacity-100"></div>
-                    <button onclick="toggleAccordion('p', 1)" class="w-full flex items-center justify-between p-5 hover:bg-gray-800/60 transition-colors duration-200 relative z-10">
-                        <div class="flex items-center gap-3">
-                            <div class="bg-brand/20 p-2 rounded-lg"><i data-lucide="shield" class="text-brand w-5 h-5"></i></div>
-                            <div class="text-left">
-                                <h2 class="font-bold text-lg leading-tight text-white">Day 1: Chest & Triceps</h2>
-                                <p class="text-[10px] text-brand font-semibold uppercase tracking-widest">Upper Body Thickness</p>
-                            </div>
-                        </div>
-                        <i data-lucide="chevron-down" id="icon-p-1" class="text-gray-400 w-5 h-5 accordion-icon"></i>
-                    </button>
-                    <div id="content-p-1" class="accordion-content px-5 pb-5 space-y-5 relative z-10">
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Incline Smith Machine Press</p>
-                                <span class="text-sm font-mono text-brand">4×6-8</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Why:</strong> Upper chest shelf is the #1 visual marker of a big chest. Retract scapula hard before unracking — blades down and back the whole set.</p>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Incline DB Press or Incline Barbell Press.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 3-1-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">180s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Flat DB Press</p>
-                                <span class="text-sm font-mono text-brand">4×10</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Get a deep stretch at the bottom — elbows just below bench level. Do NOT clank the DBs at the top. Stop 2 inches short and squeeze hard.</p>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Flat Barbell Bench Press.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 3-0-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">90s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Low-to-High Cable Fly</p>
-                                <span class="text-sm font-mono text-brand">3×12-15</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Why:</strong> Cables set low to pull upward targets the upper pec fibers post-press — maximizes the chest-to-shoulder tie-in that makes you look "full" in a t-shirt. Hold the squeeze 1s at peak.</p>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> High-to-Low Fly for lower pec, or Pec Deck Machine.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-2</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Weighted Dips</p>
-                                <span class="text-sm font-mono text-brand">3×10-12</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Lean chest forward, chin tucked. This is a chest/lower-pec exercise here — if you go upright it shifts to shoulders. Adds the bottom of the chest that makes the pec look "dropped."</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 3-1-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">120s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Rope Pushdowns</p>
-                                <span class="text-sm font-mono text-brand">4×15</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Split the rope apart at the bottom to hit the lateral head — the "horseshoe" shape visible from behind. Keep elbows pinned to sides. Hinge slightly at the waist.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Overhead DB Tricep Extension</p>
-                                <span class="text-sm font-mono text-brand">3×12</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Why:</strong> Long head of the tricep — the part that creates arm thickness when viewed from the side. Only fully activated when the arm is overhead. Deep stretch at the bottom every rep.</p>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Cable Overhead Extension or Skullcrushers.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 3-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- ── D2: Back & Biceps ── -->
-                <div class="bg-card rounded-2xl border border-gray-800/50 shadow-md overflow-hidden relative group">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none transition-opacity duration-300 opacity-50 group-hover:opacity-100"></div>
-                    <button onclick="toggleAccordion('p', 2)" class="w-full flex items-center justify-between p-5 hover:bg-gray-800/60 transition-colors duration-200 relative z-10">
-                        <div class="flex items-center gap-3">
-                            <div class="bg-blue-500/20 p-2 rounded-lg"><i data-lucide="arrow-down-circle" class="text-blue-400 w-5 h-5"></i></div>
-                            <div class="text-left">
-                                <h2 class="font-bold text-lg leading-tight text-white">Day 2: Back & Biceps</h2>
-                                <p class="text-[10px] text-blue-400 font-semibold uppercase tracking-widest">V-Taper Builder</p>
-                            </div>
-                        </div>
-                        <i data-lucide="chevron-down" id="icon-p-2" class="text-gray-400 w-5 h-5 accordion-icon"></i>
-                    </button>
-                    <div id="content-p-2" class="accordion-content px-5 pb-5 space-y-5 relative z-10">
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Weighted Pull-Ups</p>
-                                <span class="text-sm font-mono text-brand">4×6-10</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Why:</strong> Nothing builds lat width (the V-taper) like weighted pull-ups. Full dead hang at the bottom every rep — no partial reps. Drive elbows down to your hips, not just pulling with hands.</p>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Heavy Lat Pulldowns (pronated grip, wide).</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-1-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">180s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Barbell Bent-Over Row</p>
-                                <span class="text-sm font-mono text-brand">4×8-10</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> 45° torso, overhand grip. Pull to lower chest/upper navel — that's mid-back thickness. No jerking. If your hips rise to move the weight, strip a plate. Back density is what makes you look thick from the side.</p>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> T-Bar Row (chest-supported) or Pendlay Rows.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">120s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Single-Arm Cable Pulldown</p>
-                                <span class="text-sm font-mono text-brand">3×12</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Sit sideways to the stack, allow full overhead stretch. Unilateral work catches lat imbalances. Focus on feeling the stretch, then driving the elbow to your hip pocket. Adds the "flare" when relaxed.</p>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Neutral-Grip Lat Pulldown (bilateral).</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 3-1-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">90s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Chest-Supported DB Row</p>
-                                <span class="text-sm font-mono text-brand">3×10-12</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Chest on the incline pad eliminates lower back fatigue and momentum — every rep is pure mid-back. Drive elbows straight back and squeeze shoulder blades together hard at the top.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-2</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">90s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Straight Arm Pulldown</p>
-                                <span class="text-sm font-mono text-brand">3×15</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Slight hip hinge, arms straight but soft at the elbows. Pure lat isolation — biceps are completely out of the movement. Finishes the lat pump before moving to arms.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Incline DB Curl</p>
-                                <span class="text-sm font-mono text-brand">3×12</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Why:</strong> Arm behind the body = long head of the bicep on stretch. That's the peak. Supinate (rotate palm up) fully as you curl. Don't let the elbows swing forward.</p>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Spider Curls on incline bench.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 3-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Hammer Curls</p>
-                                <span class="text-sm font-mono text-brand">3×12</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Why:</strong> Neutral grip targets the brachialis — the muscle that sits under the bicep and pushes it up. The biggest factor in arm thickness. Alternate arms, no swinging. Keep elbows pinned.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- ── D3: Full Legs ── -->
-                <div class="bg-card rounded-2xl border border-gray-800/50 shadow-md overflow-hidden relative group">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none transition-opacity duration-300 opacity-50 group-hover:opacity-100"></div>
-                    <button onclick="toggleAccordion('p', 3)" class="w-full flex items-center justify-between p-5 hover:bg-gray-800/60 transition-colors duration-200 relative z-10">
-                        <div class="flex items-center gap-3">
-                            <div class="bg-emerald-500/20 p-2 rounded-lg"><i data-lucide="activity" class="text-emerald-400 w-5 h-5"></i></div>
-                            <div class="text-left">
-                                <h2 class="font-bold text-lg leading-tight text-white">Day 3: Full Legs</h2>
-                                <p class="text-[10px] text-emerald-400 font-semibold uppercase tracking-widest">Quads · Hams · Glutes · Calves</p>
-                            </div>
-                        </div>
-                        <i data-lucide="chevron-down" id="icon-p-3" class="text-gray-400 w-5 h-5 accordion-icon"></i>
-                    </button>
-                    <div id="content-p-3" class="accordion-content px-5 pb-5 space-y-5 relative z-10">
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Hack Squat</p>
-                                <span class="text-sm font-mono text-brand">4×10-12</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Low, close foot placement to maximally hit the outer quad sweep — the teardrop shape. Go deep past 90°. No knee lockout at the top. This is the primary quad mass builder today.</p>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Pendulum Squat or Leg Press (low narrow stance).</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 3-1-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">180s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Leg Press (High Volume)</p>
-                                <span class="text-sm font-mono text-brand">3×15</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> After the hack squat, volume work on the press floods legs with blood and metabolic stress. Don't lock knees at the top. Feet shoulder-width, mid-platform. On the last set, do a drop set immediately to failure.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-1-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">90s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Leg Extension</p>
-                                <span class="text-sm font-mono text-brand">4×15</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Intensity:</strong> Squeeze hard at the top for 1 second. On the final set, do a <strong class="text-brand">triple drop set</strong> — reduce weight twice, going to failure each time. Burns the quads completely out before posterior chain work.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-1-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Romanian Deadlift (Barbell)</p>
-                                <span class="text-sm font-mono text-brand">4×8-10</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Hinge at hips, bar drags close to legs, soft knee bend. Go until you feel a deep hamstring stretch — most people stop way too early. Squeeze glutes to drive back up. 3-second negative.</p>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> DB RDL or Single-Leg RDL (add load as you progress).</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 3-1-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">180s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Lying Leg Curl</p>
-                                <span class="text-sm font-mono text-brand">3×12</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Hips stay pinned flat — if they raise, the weight is too heavy. Pause for 1 second at peak contraction. Finishes hamstrings after RDLs to complete the posterior chain work. Toes pointed slightly outward to hit biceps femoris.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 3-1-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Standing Calf Raise</p>
-                                <span class="text-sm font-mono text-brand">4×12</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Go heavy. Kill the Achilles reflex with a strict 2-second pause at the bottom stretch. Calves respond to both heavy loads AND high volume — this is the heavy day. Drive up explosively.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-2-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Seated Calf Raise</p>
-                                <span class="text-sm font-mono text-brand">3×20</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Why:</strong> Knee bent isolates the soleus — the lower, deeper calf muscle that gives calves their width. Lighter weight, full stretch, full pump. Squeeze to failure on last set.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-2-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">45s Rest</span></div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- ── D4: Shoulders & Arms ── -->
-                <div class="bg-card rounded-2xl border border-gray-800/50 shadow-md overflow-hidden relative group">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none transition-opacity duration-300 opacity-50 group-hover:opacity-100"></div>
-                    <button onclick="toggleAccordion('p', 4)" class="w-full flex items-center justify-between p-5 hover:bg-gray-800/60 transition-colors duration-200 relative z-10">
-                        <div class="flex items-center gap-3">
-                            <div class="bg-purple-500/20 p-2 rounded-lg"><i data-lucide="triangle" class="text-purple-400 w-5 h-5"></i></div>
-                            <div class="text-left">
-                                <h2 class="font-bold text-lg leading-tight text-white">Day 4: Shoulders & Arms</h2>
-                                <p class="text-[10px] text-purple-400 font-semibold uppercase tracking-widest">Visual Width · Boulder Caps · Peaked Arms</p>
-                            </div>
-                        </div>
-                        <i data-lucide="chevron-down" id="icon-p-4" class="text-gray-400 w-5 h-5 accordion-icon"></i>
-                    </button>
-                    <div id="content-p-4" class="accordion-content px-5 pb-5 space-y-5 relative z-10">
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Seated DB Overhead Press</p>
-                                <span class="text-sm font-mono text-brand">4×8-10</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Back supported, core tight, avoid excessive arch. Stop just short of lockout — keeps tension on the delt. This is the shoulder mass builder. Drive the weight with intent.</p>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Standing Barbell Military Press or Smith Machine Press.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">120s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Cable Lateral Raise + Rest-Pause</p>
-                                <span class="text-sm font-mono text-brand">4×15</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Why:</strong> This is the single most important exercise if you want to look bigger. Medial delt width literally adds inches to your frame. Cable behind the back for constant tension. Pull OUT not up. Traps completely relaxed. On the last 2 sets: rest-pause — hit 15, rest 15s, go to failure again.</p>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> DB Lateral Raise (lean slightly away from the cable stack).</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Reverse Pec Deck (Rear Delt)</p>
-                                <span class="text-sm font-mono text-brand">3×15-20</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Why:</strong> Rear delts create the 3D "capped" shoulder look and fill out the upper back. Keep traps 100% relaxed. If your traps are working, the weight is too heavy. Pinch shoulder blades at peak.</p>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Bent-Over DB Rear Delt Fly or Cable Face Pull variation.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-2</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Face Pulls</p>
-                                <span class="text-sm font-mono text-brand">3×20</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Rope to forehead level, externally rotate at peak — pull hands apart like you're showing off a double bicep. Protects shoulder health long-term. Non-negotiable if you're pressing heavy.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-2</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">45s Rest</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">EZ Bar Curl ↔ Skullcrusher</p>
-                                <span class="text-sm font-mono text-brand">4×10-12</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> <strong class="text-brand">Superset</strong> — same bar, same bench. Curls: elbows pinned to sides, no body english. Skullcrushers: lower bar to forehead slowly, elbows stay pointed at ceiling. Arms are 2/3 of your upper arm — training them together with heavy compound moves is the most efficient path to sleeve-filling arms.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">90s After Pair</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Cable Curl ↔ Rope Pushdown</p>
-                                <span class="text-sm font-mono text-brand">3×12-15</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> <strong class="text-brand">Superset Finisher.</strong> Cable keeps tension at the bottom of the curl where DBs go slack. Pushdowns: split rope at bottom for lateral head detail. Pump maximum blood into both muscle groups to finish. The skin should feel tight.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s After Pair</span></div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- ── D5: Cardio & Core ── -->
-                <div class="bg-card rounded-2xl border border-gray-800/50 shadow-md overflow-hidden relative group">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none transition-opacity duration-300 opacity-50 group-hover:opacity-100"></div>
-                    <button onclick="toggleAccordion('p', 5)" class="w-full flex items-center justify-between p-5 hover:bg-gray-800/60 transition-colors duration-200 relative z-10">
-                        <div class="flex items-center gap-3">
-                            <div class="bg-orange-500/20 p-2 rounded-lg"><i data-lucide="heart-pulse" class="text-orange-400 w-5 h-5"></i></div>
-                            <div class="text-left">
-                                <h2 class="font-bold text-lg leading-tight text-white">Day 5: Cardio & Core</h2>
-                                <p class="text-[10px] text-orange-400 font-semibold uppercase tracking-widest">Active Recovery · Conditioning · Abs</p>
-                            </div>
-                        </div>
-                        <i data-lucide="chevron-down" id="icon-p-5" class="text-gray-400 w-5 h-5 accordion-icon"></i>
-                    </button>
-                    <div id="content-p-5" class="accordion-content px-5 pb-5 space-y-5 relative z-10">
-
-                        <div class="bg-orange-500/10 border border-orange-500/30 rounded-lg p-3 mt-4">
-                            <p class="text-[11px] text-gray-300 leading-snug"><strong class="text-orange-400">Purpose:</strong> You're on a caloric surplus with Test Cyp — cardio isn't to burn fat, it's to (1) improve nutrient partitioning, (2) keep cardiovascular health in check, and (3) flush soreness from the week. Keep it aerobic. If you're gasping, you're going too hard.</p>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">LISS Cardio (Primary)</p>
-                                <span class="text-sm font-mono text-orange-400">25-35 Min</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Best options:</strong> Stairmaster (highest calorie burn, works glutes), Incline Treadmill Walk (12% incline, 3.5 mph — the "12-3-30"), or Assault Bike (low impact, high output). Target zone: 120-140 BPM. You should be able to hold a full conversation.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Zone 2</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">120–140 BPM</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Optional HIIT Finisher</p>
-                                <span class="text-sm font-mono text-orange-400">10 Rounds</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Protocol:</strong> 30s hard effort (sprint on bike or treadmill) / 30s rest — 10 rounds total (~10 min). <strong class="text-orange-400">Only do this if you feel recovered.</strong> If legs are still heavy from Day 3, skip it. Recovery trumps conditioning on a bulk.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">30s On / 30s Off</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Optional</span></div>
-                        </div>
-
-                        <div class="border-t border-gray-800/80 pt-4">
-                            <div class="flex justify-between items-start mb-2">
-                                <p class="text-sm font-bold text-gray-200">Core Circuit</p>
-                                <span class="text-sm font-mono text-orange-400">3 Rounds</span>
-                            </div>
-                            <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
-                                <div class="flex items-start gap-2">
-                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
-                                    <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Circuit (minimal rest between exercises):</strong><br>
-                                    — <strong class="text-white">Cable Crunches</strong> × 15 (weighted, rib to hip)<br>
-                                    — <strong class="text-white">Hanging Leg Raise</strong> × 12 (dead hang, slow negative)<br>
-                                    — <strong class="text-white">Plank</strong> × 45s (brace hard, don't just hold time)<br>
-                                    — <strong class="text-white">Oblique Cable Crunch</strong> × 12/side<br>
-                                    Rest 60s between rounds.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">3 Rounds</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Between Rounds</span></div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- ===================== TAB 3: COOL DOWN ===================== -->
-            <div id="tab-cooldown" class="px-4 py-6 space-y-4 tab-content">
-                <div class="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 mb-4">
-                    <div class="flex items-center gap-2 mb-2">
-                        <i data-lucide="wind" class="text-blue-400 w-5 h-5"></i>
-                        <strong class="text-blue-400 tracking-wider uppercase text-xs">Mindfulness & Recovery</strong>
-                    </div>
-                    <p class="text-[11px] text-gray-300 mb-2 leading-relaxed">Perform static stretches to stretch the fascia and create growth room. Combine with <strong class="text-white">Box Breathing</strong> to downregulate the nervous system:</p>
-                    <ul class="text-[11px] text-blue-200 font-mono bg-blue-900/20 p-2 rounded inline-block">
-                        <li>Inhale: 4s | Hold: 4s | Exhale: 4s</li>
-                    </ul>
-                </div>
-                <div class="space-y-3">
-
-                    <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden">
-                        <button onclick="toggleAccordion('c', 1)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
-                            <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2"><i data-lucide="shield" class="w-4 h-4 text-brand"></i> Day 1: Chest & Triceps</span>
-                            <i data-lucide="chevron-down" id="icon-c-1" class="text-gray-500 w-4 h-4 accordion-icon"></i>
-                        </button>
-                        <div id="content-c-1" class="accordion-content px-4 pb-4 space-y-2 text-xs text-gray-400">
-                            <div class="border-t border-gray-800 pt-3">
-                            <p><strong class="text-white">LISS:</strong> 10 Min easy walk or light bike.</p>
-                            <p class="mt-2"><strong class="text-white">Static Stretch:</strong> Doorway chest stretch (30s), Cross-body shoulder stretch (30s/side), Overhead tricep stretch (30s/side), Lat stretch in doorframe or child's pose (30s).</p>
-                            <p class="mt-2"><strong class="text-brand">Recovery:</strong> Foam roll upper chest, pecs, and lats. Shoulder 90/90 external rotation stretch to decompress from pressing.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden">
-                        <button onclick="toggleAccordion('c', 2)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
-                            <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2"><i data-lucide="arrow-down-circle" class="w-4 h-4 text-blue-400"></i> Day 2: Back & Biceps</span>
-                            <i data-lucide="chevron-down" id="icon-c-2" class="text-gray-500 w-4 h-4 accordion-icon"></i>
-                        </button>
-                        <div id="content-c-2" class="accordion-content px-4 pb-4 space-y-2 text-xs text-gray-400">
-                            <div class="border-t border-gray-800 pt-3">
-                            <p><strong class="text-white">LISS:</strong> 10 Min easy walk or light rower (low SPM).</p>
-                            <p class="mt-2"><strong class="text-white">Static Stretch:</strong> Overhead lat stretch (grab rack, sink hips back — 30s/side), Child's pose (30s), Bicep wall stretch (30s/side — palm flat on wall, arm straight, turn away).</p>
-                            <p class="mt-2"><strong class="text-brand">Recovery:</strong> Foam roll thoracic spine (T-spine extensions over roller), mid-back, and lats. This prevents the forward shoulder posture that makes a big back invisible.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden">
-                        <button onclick="toggleAccordion('c', 3)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
-                            <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2"><i data-lucide="activity" class="w-4 h-4 text-emerald-400"></i> Day 3: Full Legs</span>
-                            <i data-lucide="chevron-down" id="icon-c-3" class="text-gray-500 w-4 h-4 accordion-icon"></i>
-                        </button>
-                        <div id="content-c-3" class="accordion-content px-4 pb-4 space-y-2 text-xs text-gray-400">
-                            <div class="border-t border-gray-800 pt-3">
-                            <p><strong class="text-white">LISS:</strong> 10-15 Min slow treadmill walk — the most important cooldown of the week. Your legs need the blood moving.</p>
-                            <p class="mt-2"><strong class="text-white">Static Stretch:</strong> Static quad stretch (30-60s/leg), Seated hamstring stretch (30-60s), Pigeon pose (60s/side), Hip flexor kneeling lunge stretch (30s/side), Calf/Achilles stretch against wall (30s/leg).</p>
-                            <p class="mt-2"><strong class="text-brand">Recovery:</strong> Foam roll quads, IT band, hamstrings, and calves. Legs will be very sore after a combined day — spend extra time here.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden">
-                        <button onclick="toggleAccordion('c', 4)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
-                            <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2"><i data-lucide="triangle" class="w-4 h-4 text-purple-400"></i> Day 4: Shoulders & Arms</span>
-                            <i data-lucide="chevron-down" id="icon-c-4" class="text-gray-500 w-4 h-4 accordion-icon"></i>
-                        </button>
-                        <div id="content-c-4" class="accordion-content px-4 pb-4 space-y-2 text-xs text-gray-400">
-                            <div class="border-t border-gray-800 pt-3">
-                            <p><strong class="text-white">LISS:</strong> 10 Min easy walk or bike.</p>
-                            <p class="mt-2"><strong class="text-white">Static Stretch:</strong> Cross-body shoulder (30s/side), Overhead tricep (30s/side), Doorway chest open (30s), Bicep wall stretch (30s/side).</p>
-                            <p class="mt-2"><strong class="text-brand">Recovery:</strong> Foam roll upper traps (heads down on roller), rear delts, and upper arms. YTWLs with very light weight to decompress the shoulder capsule after heavy pressing earlier in the week.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden">
-                        <button onclick="toggleAccordion('c', 5)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
-                            <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2"><i data-lucide="heart-pulse" class="w-4 h-4 text-orange-400"></i> Day 5: Cardio & Core</span>
-                            <i data-lucide="chevron-down" id="icon-c-5" class="text-gray-500 w-4 h-4 accordion-icon"></i>
-                        </button>
-                        <div id="content-c-5" class="accordion-content px-4 pb-4 space-y-2 text-xs text-gray-400">
-                            <div class="border-t border-gray-800 pt-3">
-                            <p><strong class="text-white">Full-Body Stretch:</strong> This is the recovery day — give the whole body attention. Spend 10-15 min in a full stretch sequence.</p>
-                            <p class="mt-2"><strong class="text-white">Sequence:</strong> Child's pose (60s), Pigeon pose (60s/side), Thoracic rotation (10/side), Chest doorway open (30s), Lat overhead stretch (30s/side), Hamstring seated stretch (45s), Hip flexor lunge (30s/side).</p>
-                            <p class="mt-2"><strong class="text-brand">Recovery:</strong> Full-body foam roll circuit. This is the day to do it right — spend 15-20 min total on mobility work. It's what keeps you training consistently.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- ===================== TAB 4: MEALS ===================== -->
-            <div id="tab-meals" class="px-4 py-6 space-y-5 tab-content">
-                
-                <div class="bg-card p-4 rounded-xl border border-gray-800 flex justify-between items-center shadow-lg">
-                    <div>
-                        <h3 class="text-brand font-black text-2xl tracking-tight">3,500 <span class="text-sm font-normal text-gray-400">kcal</span></h3>
-                        <p class="text-[10px] font-bold text-gray-300 uppercase">Daily Target</p>
-                    </div>
-                    <div class="text-right border-l border-gray-800 pl-4">
-                        <p class="text-sm font-mono font-bold text-white tracking-tighter">230P / 450C / 80F</p>
-                        <p class="text-[10px] text-gray-400 uppercase font-bold mt-1">Macros</p>
-                    </div>
-                </div>
-
-                <div class="bg-brand/10 border border-brand/30 rounded-xl p-3 flex gap-3 items-center">
-                    <i data-lucide="scale" class="text-brand w-5 h-5 shrink-0"></i>
-                    <p class="text-[10px] text-gray-300 leading-snug">Adjust the exact meat and carb portions in the meals below to hit your specific macro targets above.</p>
-                </div>
-
-                <!-- Meal 1 -->
-                <div class="bg-card rounded-2xl p-5 border border-gray-800/80 shadow-lg relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-brand/5 rounded-full blur-2xl -mr-8 -mt-8 pointer-events-none"></div>
-                    <div class="flex items-center gap-3 mb-4 border-b border-gray-800 pb-3 relative z-10">
-                        <div class="bg-brand/20 p-2 rounded-lg"><i data-lucide="sunrise" class="text-brand w-5 h-5"></i></div>
-                        <div class="flex-1 flex justify-between items-center"><h3 class="font-bold text-gray-100 text-lg">Meal 1</h3></div>
-                    </div>
-                    <div class="relative z-10">
-                        <p class="text-sm text-gray-200 mb-3"><strong class="text-white">Primary:</strong> 1c Egg Whites + 2 Whole Eggs, 1.5c Cream of Rice, 1c Greek Yogurt</p>
-                        <div class="bg-dark p-3 rounded-lg border border-gray-800 text-[11px] text-gray-400">
-                            <strong class="text-brand uppercase block mb-1">Alternatives:</strong>
-                            • 1.5c Oats + 1.5 Scoops Whey + 1c Berries<br>
-                            • 1.5c Cottage Cheese + 2 Toast w/ Jam
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Meal 2 -->
-                <div class="bg-card rounded-2xl p-5 border border-gray-800/80 shadow-lg relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-brand/5 rounded-full blur-2xl -mr-8 -mt-8 pointer-events-none"></div>
-                    <div class="flex items-center gap-3 mb-4 border-b border-gray-800 pb-3 relative z-10">
-                        <div class="bg-brand/20 p-2 rounded-lg"><i data-lucide="sun" class="text-brand w-5 h-5"></i></div>
-                        <div class="flex-1 flex justify-between items-center"><h3 class="font-bold text-gray-100 text-lg">Meal 2</h3></div>
-                    </div>
-                    <div class="relative z-10">
-                        <p class="text-sm text-gray-200 mb-3"><strong class="text-white">Primary:</strong> 8oz Chicken or Shrimp, 2c Jasmine Rice, Asparagus</p>
-                        <div class="bg-dark p-3 rounded-lg border border-gray-800 text-[11px] text-gray-400">
-                            <strong class="text-brand uppercase block mb-1">Alternatives:</strong>
-                            • 8oz Lean Beef (93/7) + 2c Rice + Broccoli<br>
-                            • 8oz White Fish + 2c Rice + Green Beans
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pre-Workout -->
-                <div class="bg-card rounded-2xl p-5 border border-brand/40 relative overflow-hidden shadow-[0_0_20px_rgba(229,255,0,0.08)]">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
-                    <div class="flex items-center gap-3 mb-4 border-b border-gray-800 pb-3 relative z-10">
-                        <div class="bg-brand text-dark p-2 rounded-lg"><i data-lucide="battery-charging" class="w-5 h-5"></i></div>
-                        <div class="flex-1 flex justify-between items-center"><h3 class="font-bold text-white text-lg">Pre-Workout</h3></div>
-                    </div>
-                    <div class="relative z-10">
-                        <p class="text-sm text-gray-200 mb-3"><strong class="text-white">Primary:</strong> Whey Isolate, 50g Cream of Rice, Banana, Honey, Salt</p>
-                        <div class="bg-dark p-3 rounded-lg border border-gray-800 text-[11px] text-gray-400">
-                            <strong class="text-brand uppercase block mb-1">Alternatives:</strong>
-                            • 2c Rice Krispies + Whey + 1c Skim Milk<br>
-                            • 3 Rice Cakes w/ Jam + Whey + Banana
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Intra-Workout -->
-                <div class="bg-card rounded-2xl p-5 border border-blue-500/40 relative overflow-hidden shadow-[0_0_20px_rgba(59,130,246,0.08)]">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
-                    <div class="flex items-center gap-3 mb-4 border-b border-gray-800 pb-3 relative z-10">
-                        <div class="bg-blue-500 text-dark p-2 rounded-lg"><i data-lucide="zap" class="w-5 h-5"></i></div>
-                        <div class="flex-1 flex justify-between items-center"><h3 class="font-bold text-white text-lg">Intra-Workout</h3></div>
-                    </div>
-                    <div class="relative z-10">
-                        <p class="text-sm text-gray-200 mb-3"><strong class="text-white">Primary:</strong> 30g Carb Powder + 1 Scoop EAAs + 1 Electrolyte Pack in 32oz water</p>
-                        <div class="bg-dark p-3 rounded-lg border border-gray-800 text-[11px] text-gray-400">
-                            <strong class="text-blue-400 uppercase block mb-1">Alternatives:</strong>
-                            • 20oz Coconut Water + EAAs + Pink Salt<br>
-                            • 24oz Gatorade + 1 Scoop BCAA + Electrolyte Tablet
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Post-Workout -->
-                <div class="bg-card rounded-2xl p-5 border border-emerald-500/40 shadow-lg relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl -mr-8 -mt-8 pointer-events-none"></div>
-                    <div class="flex items-center gap-3 mb-4 border-b border-gray-800 pb-3 relative z-10">
-                        <div class="bg-emerald-500/20 p-2 rounded-lg"><i data-lucide="biceps-flexed" class="text-emerald-400 w-5 h-5"></i></div>
-                        <div class="flex-1 flex justify-between items-center"><h3 class="font-bold text-gray-100 text-lg">Post-Workout</h3></div>
-                    </div>
-                    <div class="relative z-10">
-                        <p class="text-sm text-gray-200 mb-3"><strong class="text-white">Primary:</strong> 8oz Lean Turkey or White Fish, 3c White Rice (Zero Added Fat)</p>
-                        <div class="bg-dark p-3 rounded-lg border border-gray-800 text-[11px] text-gray-400">
-                            <strong class="text-emerald-400 uppercase block mb-1">Alternatives (Keep Fat Zero):</strong>
-                            • 8oz Cooked Shrimp + 3c White Rice<br>
-                            • 8oz Chicken Breast + 12oz White Potato
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Meal 6 -->
-                <div class="bg-card rounded-2xl p-5 border border-gray-800/80 shadow-lg mb-8 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-brand/5 rounded-full blur-2xl -mr-8 -mt-8 pointer-events-none"></div>
-                    <div class="flex items-center gap-3 mb-4 border-b border-gray-800 pb-3 relative z-10">
-                        <div class="bg-brand/20 p-2 rounded-lg"><i data-lucide="moon" class="text-brand w-5 h-5"></i></div>
-                        <div class="flex-1 flex justify-between items-center"><h3 class="font-bold text-gray-100 text-lg">Meal 6</h3></div>
-                    </div>
-                    <div class="relative z-10">
-                        <p class="text-sm text-gray-200 mb-3"><strong class="text-white">Primary:</strong> 8oz Salmon or 93/7 Beef, 1c Rice, 1/2 Avocado</p>
-                        <div class="bg-dark p-3 rounded-lg border border-gray-800 text-[11px] text-gray-400">
-                            <strong class="text-brand uppercase block mb-1">Alternatives:</strong>
-                            • 8oz Sirloin Steak + 1c Rice + Spinach<br>
-                            • 8oz Ground Turkey + 1c Rice + 1oz Mixed Nuts
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        
-        <!-- Back to Top Button -->
-        <button id="backToTopBtn" onclick="scrollToTop()" class="absolute bottom-6 right-4 bg-brand text-dark p-3 rounded-full shadow-lg opacity-0 pointer-events-none transition-opacity duration-300 z-50 hover:bg-yellow-400">
-            <i data-lucide="arrow-up" class="w-5 h-5"></i>
-        </button>
-
     </div>
 
-    <script>
-        lucide.createIcons();
+    <!-- Scrollable Content -->
+    <div id="scroll-container" class="flex-1 overflow-y-auto pb-12 relative z-10 scroll-smooth">
 
-        document.addEventListener("DOMContentLoaded", () => {
-            restoreSessionState();
-            registerServiceWorker();
-        });
+        <!-- ======== TAB 1: WARM UPS ======== -->
+        <div id="tab-warmup" class="px-4 py-6 space-y-4 tab-content active">
+            <div class="bg-brand/10 border border-brand/30 rounded-xl p-3 flex gap-3 items-center mb-4">
+                <i data-lucide="flame" class="text-brand w-6 h-6 shrink-0"></i>
+                <p class="text-[10px] text-gray-300 leading-snug">
+                    <strong class="text-brand uppercase tracking-wider">CNS Priming:</strong> Flood muscles with blood and lubricate joints without fatigue. <br><strong class="text-brand mt-1 inline-block">Core Bonus:</strong> Add Planks or Bird-Dogs to any warmup for stability.
+                </p>
+            </div>
+            <div class="space-y-3">
 
-        function registerServiceWorker() {
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('Offline service worker active.', reg))
-                    .catch(err => console.warn('Service worker setup failed.', err));
-            }
+                <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden group">
+                    <button onclick="toggleAccordion('w',1)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
+                        <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2"><i data-lucide="activity" class="w-4 h-4 text-brand"></i> Day 1: Quads</span>
+                        <i data-lucide="chevron-down" id="icon-w-1" class="text-gray-500 w-4 h-4 accordion-icon"></i>
+                    </button>
+                    <div id="content-w-1" class="accordion-content px-4 pb-4 space-y-3 text-xs text-gray-400">
+                        <div class="border-t border-gray-800 pt-3"><strong class="text-white">Cardio:</strong> 5-10 Min light (Walk or Bike)</div>
+                        <div><strong class="text-white">Mobility:</strong> Dynamic leg swings, walking lunges, bodyweight squats (2×15). <strong class="text-brand">Hip Openers:</strong> Pigeon pose (30s) or hip flexor stretch.</div>
+                        <div class="bg-dark p-2 rounded border border-brand/20"><strong class="text-brand">Acclimation:</strong> Bodyweight glute bridges, ankle mobility drills.</div>
+                    </div>
+                </div>
+
+                <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden group">
+                    <button onclick="toggleAccordion('w',2)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
+                        <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2"><i data-lucide="shield" class="w-4 h-4 text-blue-400"></i> Day 2: Chest & Back</span>
+                        <i data-lucide="chevron-down" id="icon-w-2" class="text-gray-500 w-4 h-4 accordion-icon"></i>
+                    </button>
+                    <div id="content-w-2" class="accordion-content px-4 pb-4 space-y-3 text-xs text-gray-400">
+                        <div class="border-t border-gray-800 pt-3"><strong class="text-white">Cardio:</strong> 5-10 Min Rower or Jump Rope</div>
+                        <div><strong class="text-white">Mobility:</strong> Shoulder arm circles, band pull-aparts (2×15). <strong class="text-blue-400">Injury Prev:</strong> Wall slides (2×15).</div>
+                        <div class="bg-dark p-2 rounded border border-blue-500/20"><strong class="text-blue-400">Acclimation:</strong> Light warm-up sets (pushups, light rows) + 2×15 External Rotations.</div>
+                    </div>
+                </div>
+
+                <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden group">
+                    <button onclick="toggleAccordion('w',3)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
+                        <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2"><i data-lucide="triangle" class="w-4 h-4 text-purple-400"></i> Day 3: Shoulders & Arms</span>
+                        <i data-lucide="chevron-down" id="icon-w-3" class="text-gray-500 w-4 h-4 accordion-icon"></i>
+                    </button>
+                    <div id="content-w-3" class="accordion-content px-4 pb-4 space-y-3 text-xs text-gray-400">
+                        <div class="border-t border-gray-800 pt-3"><strong class="text-white">Cardio:</strong> 5-10 Min light cardio</div>
+                        <div><strong class="text-white">Mobility:</strong> Arm circles, Y-Raises (15 reps), band dislocates (2×15).</div>
+                        <div class="bg-dark p-2 rounded border border-purple-500/20"><strong class="text-purple-400">Acclimation:</strong> Light sets of overhead presses and lateral raises. <strong class="text-white">Accessory:</strong> 2-3 sets YTWLs.</div>
+                    </div>
+                </div>
+
+                <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden group">
+                    <button onclick="toggleAccordion('w',4)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
+                        <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2"><i data-lucide="git-branch" class="w-4 h-4 text-emerald-400"></i> Day 4: Hams & Glutes</span>
+                        <i data-lucide="chevron-down" id="icon-w-4" class="text-gray-500 w-4 h-4 accordion-icon"></i>
+                    </button>
+                    <div id="content-w-4" class="accordion-content px-4 pb-4 space-y-3 text-xs text-gray-400">
+                        <div class="border-t border-gray-800 pt-3"><strong class="text-white">Cardio:</strong> 5-10 Min Treadmill Walk</div>
+                        <div><strong class="text-white">Mobility:</strong> Hip circles, leg swings, bodyweight RDLs (2×15).</div>
+                        <div class="bg-dark p-2 rounded border border-emerald-500/20"><strong class="text-emerald-400">Acclimation:</strong> Glute bridges, bird-dogs. <strong class="text-white">Balance:</strong> Single-leg RDLs (10/leg).</div>
+                    </div>
+                </div>
+
+                <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden group">
+                    <button onclick="toggleAccordion('w',5)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
+                        <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2"><i data-lucide="heart-pulse" class="w-4 h-4 text-orange-400"></i> Day 5: Cardio & Core</span>
+                        <i data-lucide="chevron-down" id="icon-w-5" class="text-gray-500 w-4 h-4 accordion-icon"></i>
+                    </button>
+                    <div id="content-w-5" class="accordion-content px-4 pb-4 space-y-3 text-xs text-gray-400">
+                        <div class="border-t border-gray-800 pt-3"><strong class="text-white">Movement Prep:</strong> 5 Min easy walk + full-body dynamic stretch — leg swings, arm circles, torso twists (10 reps each).</div>
+                        <div><strong class="text-white">Intent:</strong> Active recovery day. Light enough to flush soreness — not a punishment session. Keep intensity conversational.</div>
+                        <div class="bg-dark p-2 rounded border border-orange-500/20"><strong class="text-orange-400">Note:</strong> No warm-up sets needed. Let your body guide the pace today.</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ======== TAB 2: WORKOUT ======== -->
+        <div id="tab-workout" class="px-4 py-6 space-y-4 tab-content">
+
+            <div class="bg-brand/10 border border-brand/30 rounded-xl p-3 flex gap-3 items-center mb-2">
+                <i data-lucide="info" class="text-brand w-6 h-6 shrink-0"></i>
+                <p class="text-[10px] text-gray-300 leading-snug">
+                    <strong class="text-brand">Rest Guide:</strong> Density (High rep): 30-60s. Hypertrophy (Mod rep): 60-90s. Strength (Low rep/Heavy): 2-3 min. Supersets/Drop sets: 15-30s between exercises.
+                </p>
+            </div>
+
+            <!-- D1: Quads -->
+            <div class="bg-card rounded-2xl border border-gray-800/50 shadow-md overflow-hidden relative group">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-brand/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <button onclick="toggleAccordion('p',1)" class="w-full flex items-center justify-between p-5 hover:bg-gray-800/60 transition-colors duration-200 relative z-10">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-brand/20 p-2 rounded-lg"><i data-lucide="activity" class="text-brand w-5 h-5"></i></div>
+                        <div class="text-left">
+                            <h2 class="font-bold text-lg leading-tight text-white">Day 1: Legs (Quads)</h2>
+                            <p class="text-[10px] text-brand font-semibold uppercase tracking-widest">Density Focus</p>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" id="icon-p-1" class="text-gray-400 w-5 h-5 accordion-icon"></i>
+                </button>
+                <div id="content-p-1" class="accordion-content px-5 pb-5 space-y-5 relative z-10">
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Pendulum Squat</p><span class="text-sm font-mono text-brand">3×10-12</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Keep back flat on pad, avoid knee lockout to protect joints.</p></div>
+                            <div class="flex items-start gap-2"><i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Bulgarian Split Squats or Step-Ups.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 3-0-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">180s Rest</span></div>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Leg Extensions</p><span class="text-sm font-mono text-brand">4×15</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Squeeze at peak contraction. <strong class="text-brand">Triple-Drop Set:</strong> Lighter weights right after failure on final set.</p></div>
+                            <div class="flex items-start gap-2"><i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Sissy Squats.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Hack Squat</p><span class="text-sm font-mono text-brand">3×15</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Feet low and close on the platform to emphasize outer quad sweep.</p></div>
+                            <div class="flex items-start gap-2"><i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Leg Press (low stance) or Lunges.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 3-0-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">120s Rest</span></div>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Weighted Crunches</p><span class="text-sm font-mono text-brand">4×20</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Curl ribs down to pelvis. Avoid simply hinging at the hips.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Seated Calf Raise</p><span class="text-sm font-mono text-brand">4×15</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Pause 2 full seconds at the bottom stretch to kill the Achilles reflex. Explode up.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-2-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D2: Chest & Back -->
+            <div class="bg-card rounded-2xl border border-gray-800/50 shadow-md overflow-hidden relative group">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <button onclick="toggleAccordion('p',2)" class="w-full flex items-center justify-between p-5 hover:bg-gray-800/60 transition-colors duration-200 relative z-10">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-blue-500/20 p-2 rounded-lg"><i data-lucide="shield" class="text-blue-400 w-5 h-5"></i></div>
+                        <div class="text-left">
+                            <h2 class="font-bold text-lg leading-tight text-white">Day 2: Chest & Back</h2>
+                            <p class="text-[10px] text-blue-400 font-semibold uppercase tracking-widest">Upper Body Mass</p>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" id="icon-p-2" class="text-gray-400 w-5 h-5 accordion-icon"></i>
+                </button>
+                <div id="content-p-2" class="accordion-content px-5 pb-5 space-y-5 relative z-10">
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Incline Smith Press</p><span class="text-sm font-mono text-brand">4×6-10</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Retract scapula (shoulder blades down and back). Control the negative phase.</p></div>
+                            <div class="flex items-start gap-2"><i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> DB Incline Press or Push-Ups.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 3-0-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">120s Rest</span></div>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">T-Bar Row (Supported)</p><span class="text-sm font-mono text-brand">4×8-10</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Keep elbows close to body for mid-back activation. Avoid jerking momentum.</p></div>
+                            <div class="flex items-start gap-2"><i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Barbell Rows or Pendlay Rows.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-1-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">120s Rest</span></div>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Flat DB Bench</p><span class="text-sm font-mono text-brand">3×10</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Get a deep stretch. Don't clank dumbbells together at the top.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">90s Rest</span></div>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Weighted Pull-Ups</p><span class="text-sm font-mono text-brand">3×8-10</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Full dead hang at the bottom. Drive elbows down, not just hands.</p></div>
+                            <div class="flex items-start gap-2"><i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Heavy Lat Pulldowns.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">120s Rest</span></div>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Cable Crossovers</p><span class="text-sm font-mono text-brand">3×15</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Intense stretch at the top, hard squeeze at the bottom. Burnout the chest completely.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-2</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Straight Arm Pulldowns</p><span class="text-sm font-mono text-brand">3×15</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Slight hinge at hips. Keep arms straight but not locked — isolates lats for that V-taper flare.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D3: Shoulders & Arms -->
+            <div class="bg-card rounded-2xl border border-gray-800/50 shadow-md overflow-hidden relative group">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <button onclick="toggleAccordion('p',3)" class="w-full flex items-center justify-between p-5 hover:bg-gray-800/60 transition-colors duration-200 relative z-10">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-purple-500/20 p-2 rounded-lg"><i data-lucide="triangle" class="text-purple-400 w-5 h-5"></i></div>
+                        <div class="text-left">
+                            <h2 class="font-bold text-lg leading-tight text-white">Day 3: Shoulders & Arms</h2>
+                            <p class="text-[10px] text-purple-400 font-semibold uppercase tracking-widest">Visual Width</p>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" id="icon-p-3" class="text-gray-400 w-5 h-5 accordion-icon"></i>
+                </button>
+                <div id="content-p-3" class="accordion-content px-5 pb-5 space-y-5 relative z-10">
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Seated DB OH Press</p><span class="text-sm font-mono text-brand">4×8-10</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Keep core tight, avoid excessive lumbar arch. Stop just short of lockout.</p></div>
+                            <div class="flex items-start gap-2"><i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Standing Military Press.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">120s Rest</span></div>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Cable Side Raise</p><span class="text-sm font-mono text-brand">4×15</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Pull cable slightly behind the back for deeper stretch. Pull out, not up. Traps relaxed.</p></div>
+                            <div class="flex items-start gap-2"><i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> DB Lateral Raises. Last 2 sets: rest-pause after failure (15s, then continue).</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">EZ Bar Curl + Skullcrusher</p><span class="text-sm font-mono text-brand">4×12</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> <strong class="text-brand">Superset.</strong> Keep elbows pinned to sides on curls. No momentum. Lower bar to forehead slowly on skulls.</p></div>
+                            <div class="flex items-start gap-2"><i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> DB Curls + Overhead Triceps Extension.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">90s Rest</span></div>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Reverse Pec Deck</p><span class="text-sm font-mono text-brand">3×15</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Isolate rear delts to build the 3D look. Keep traps completely relaxed the entire set.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Hammer Curls + Rope Pushdowns</p><span class="text-sm font-mono text-brand">3×15</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> <strong class="text-brand">Superset Finisher.</strong> Pump maximum blood into the arms. Split rope apart at the bottom for the horseshoe detail.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Face Pulls</p><span class="text-sm font-mono text-brand">3×20</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Pull rope to forehead, externally rotate at peak (pull hands apart). Protects shoulder health from all the pressing.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-2</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">45s Rest</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D4: Hams & Glutes -->
+            <div class="bg-card rounded-2xl border border-gray-800/50 shadow-md overflow-hidden relative group">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <button onclick="toggleAccordion('p',4)" class="w-full flex items-center justify-between p-5 hover:bg-gray-800/60 transition-colors duration-200 relative z-10">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-emerald-500/20 p-2 rounded-lg"><i data-lucide="git-branch" class="text-emerald-400 w-5 h-5"></i></div>
+                        <div class="text-left">
+                            <h2 class="font-bold text-lg leading-tight text-white">Day 4: Legs (Hams & Glutes)</h2>
+                            <p class="text-[10px] text-emerald-400 font-semibold uppercase tracking-widest">Posterior Chain</p>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" id="icon-p-4" class="text-gray-400 w-5 h-5 accordion-icon"></i>
+                </button>
+                <div id="content-p-4" class="accordion-content px-5 pb-5 space-y-5 relative z-10">
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Lying Leg Curls</p><span class="text-sm font-mono text-brand">4×12</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Keep hips pinned to pad. Pre-exhausts hams to save CNS for RDLs. Toes slightly out to hit biceps femoris.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 3-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Barbell RDLs</p><span class="text-sm font-mono text-brand">4×8-10</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Hinge at hips, keep bar close to shins. Go until you feel a deep hamstring stretch — most stop too early. Slow 3s negative.</p></div>
+                            <div class="flex items-start gap-2"><i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Good Mornings or DB RDL.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 3-1-1-0</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">180s Rest</span></div>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Glute-Ham Raise</p><span class="text-sm font-mono text-brand">3×Fail</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Maintain straight line from knees to shoulders. Pivot only at the knees.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 2-0-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">90s Rest</span></div>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Standing Calf Raise</p><span class="text-sm font-mono text-brand">5×10-12</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Form:</strong> Heavy load. Lock knees. Deep stretch at the bottom with a strict 2-second pause to kill the Achilles reflex.</p></div>
+                            <div class="flex items-start gap-2"><i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Sub:</strong> Calf Presses on Leg Press Machine.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Tempo: 3-2-1-1</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Rest</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D5: Cardio & Core -->
+            <div class="bg-card rounded-2xl border border-gray-800/50 shadow-md overflow-hidden relative group">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <button onclick="toggleAccordion('p',5)" class="w-full flex items-center justify-between p-5 hover:bg-gray-800/60 transition-colors duration-200 relative z-10">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-orange-500/20 p-2 rounded-lg"><i data-lucide="heart-pulse" class="text-orange-400 w-5 h-5"></i></div>
+                        <div class="text-left">
+                            <h2 class="font-bold text-lg leading-tight text-white">Day 5: Cardio & Core</h2>
+                            <p class="text-[10px] text-orange-400 font-semibold uppercase tracking-widest">Active Recovery · Conditioning</p>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" id="icon-p-5" class="text-gray-400 w-5 h-5 accordion-icon"></i>
+                </button>
+                <div id="content-p-5" class="accordion-content px-5 pb-5 space-y-5 relative z-10">
+                    <div class="bg-orange-500/10 border border-orange-500/30 rounded-lg p-3 mt-4">
+                        <p class="text-[11px] text-gray-300 leading-snug"><strong class="text-orange-400">Purpose:</strong> On a surplus with Test Cyp cardio is for (1) nutrient partitioning, (2) cardiovascular health, and (3) flushing soreness from the week. Keep it aerobic. If you're gasping, you're going too hard.</p>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">LISS Cardio</p><span class="text-sm font-mono text-orange-400">25-35 Min</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Best options:</strong> Stairmaster, Incline Treadmill Walk (12% incline / 3.5 mph), or Assault Bike. Target zone 120-140 BPM. You should be able to hold a full conversation.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Zone 2</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">120–140 BPM</span></div>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Optional HIIT Finisher</p><span class="text-sm font-mono text-orange-400">10 Rounds</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i><p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Protocol:</strong> 30s hard effort / 30s rest — 10 rounds (~10 min). <strong class="text-orange-400">Only do this if you feel recovered.</strong> If legs are still heavy from Day 4, skip it.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">30s On / 30s Off</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">Optional</span></div>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="flex justify-between items-start mb-2"><p class="text-sm font-bold text-gray-200">Core Circuit</p><span class="text-sm font-mono text-orange-400">3 Rounds</span></div>
+                        <div class="bg-dark/60 rounded-lg p-3 mb-3 space-y-2 border border-gray-800/50 shadow-inner">
+                            <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-brand shrink-0 mt-0.5"></i>
+                            <p class="text-[11px] text-gray-400 leading-snug"><strong class="text-gray-300">Circuit:</strong><br>
+                            — <strong class="text-white">Cable Crunches</strong> ×15 (rib to hip)<br>
+                            — <strong class="text-white">Hanging Leg Raise</strong> ×12 (slow negative)<br>
+                            — <strong class="text-white">Plank</strong> ×45s (brace hard)<br>
+                            — <strong class="text-white">Oblique Cable Crunch</strong> ×12/side<br>
+                            Rest 60s between rounds.</p></div>
+                        </div>
+                        <div class="flex gap-2"><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">3 Rounds</span><span class="bg-gray-800/80 text-gray-300 text-[10px] font-bold px-2 py-1 rounded">60s Between Rounds</span></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ======== TAB 3: COOL DOWN ======== -->
+        <div id="tab-cooldown" class="px-4 py-6 space-y-4 tab-content">
+            <div class="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 mb-4">
+                <div class="flex items-center gap-2 mb-2">
+                    <i data-lucide="wind" class="text-blue-400 w-5 h-5"></i>
+                    <strong class="text-blue-400 tracking-wider uppercase text-xs">Mindfulness & Recovery</strong>
+                </div>
+                <p class="text-[11px] text-gray-300 mb-2 leading-relaxed">Perform static stretches to stretch the fascia and create growth room. Combine with <strong class="text-white">Box Breathing</strong> to downregulate the nervous system:</p>
+                <ul class="text-[11px] text-blue-200 font-mono bg-blue-900/20 p-2 rounded inline-block">
+                    <li>Inhale: 4s | Hold: 4s | Exhale: 4s</li>
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden group">
+                    <button onclick="toggleAccordion('c',1)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
+                        <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2"><i data-lucide="activity" class="w-4 h-4 text-brand"></i> Day 1: Quads</span>
+                        <i data-lucide="chevron-down" id="icon-c-1" class="text-gray-500 w-4 h-4 accordion-icon"></i>
+                    </button>
+                    <div id="content-c-1" class="accordion-content px-4 pb-4 space-y-2 text-xs text-gray-400">
+                        <div class="border-t border-gray-800 pt-3">
+                            <p><strong class="text-white">LISS:</strong> 10 Min easy Walk or Bike</p>
+                            <p class="mt-2"><strong class="text-white">Static Stretch:</strong> Static quad stretch (30-60s/leg), Hamstring stretch (30-60s), Hip flexor (30s).</p>
+                            <p class="mt-2"><strong class="text-brand">Recovery:</strong> Foam rolling quads and calves.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden group">
+                    <button onclick="toggleAccordion('c',2)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
+                        <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2"><i data-lucide="shield" class="w-4 h-4 text-blue-400"></i> Day 2: Chest & Back</span>
+                        <i data-lucide="chevron-down" id="icon-c-2" class="text-gray-500 w-4 h-4 accordion-icon"></i>
+                    </button>
+                    <div id="content-c-2" class="accordion-content px-4 pb-4 space-y-2 text-xs text-gray-400">
+                        <div class="border-t border-gray-800 pt-3">
+                            <p><strong class="text-white">LISS:</strong> 10 Min easy Walk or Bike</p>
+                            <p class="mt-2"><strong class="text-white">Static Stretch:</strong> Chest stretch on wall/doorway (30s), Lat stretch or child's pose (30s).</p>
+                            <p class="mt-2"><strong class="text-brand">Recovery:</strong> Shoulder mobility drills. T-spine foam roll to prevent forward shoulder posture.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden group">
+                    <button onclick="toggleAccordion('c',3)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
+                        <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2"><i data-lucide="triangle" class="w-4 h-4 text-purple-400"></i> Day 3: Shoulders & Arms</span>
+                        <i data-lucide="chevron-down" id="icon-c-3" class="text-gray-500 w-4 h-4 accordion-icon"></i>
+                    </button>
+                    <div id="content-c-3" class="accordion-content px-4 pb-4 space-y-2 text-xs text-gray-400">
+                        <div class="border-t border-gray-800 pt-3">
+                            <p><strong class="text-white">LISS:</strong> 10 Min easy Walk or Bike</p>
+                            <p class="mt-2"><strong class="text-white">Static Stretch:</strong> Cross-body shoulder (30s/side), Overhead tricep stretch (30s/side), Bicep wall stretch (30s/side).</p>
+                            <p class="mt-2"><strong class="text-brand">Recovery:</strong> Foam roll upper back and shoulders. YTWLs with very light weight to decompress the shoulder capsule.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden group">
+                    <button onclick="toggleAccordion('c',4)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
+                        <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2"><i data-lucide="git-branch" class="w-4 h-4 text-emerald-400"></i> Day 4: Hams & Glutes</span>
+                        <i data-lucide="chevron-down" id="icon-c-4" class="text-gray-500 w-4 h-4 accordion-icon"></i>
+                    </button>
+                    <div id="content-c-4" class="accordion-content px-4 pb-4 space-y-2 text-xs text-gray-400">
+                        <div class="border-t border-gray-800 pt-3">
+                            <p><strong class="text-white">LISS:</strong> 10 Min easy Walk or Bike</p>
+                            <p class="mt-2"><strong class="text-white">Static Stretch:</strong> Hamstring stretch (30-60s), Hip flexor and quad stretch (30s), Pigeon pose (60s/side).</p>
+                            <p class="mt-2"><strong class="text-brand">Recovery:</strong> Foam rolling hamstrings, glutes, and calves. Spend extra time here — posterior chain takes longest to recover.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-card rounded-xl border border-gray-800/50 overflow-hidden group">
+                    <button onclick="toggleAccordion('c',5)" class="w-full flex items-center justify-between p-4 hover:bg-gray-800/60 transition-colors duration-200">
+                        <span class="text-sm font-bold uppercase text-gray-200 flex items-center gap-2"><i data-lucide="heart-pulse" class="w-4 h-4 text-orange-400"></i> Day 5: Cardio & Core</span>
+                        <i data-lucide="chevron-down" id="icon-c-5" class="text-gray-500 w-4 h-4 accordion-icon"></i>
+                    </button>
+                    <div id="content-c-5" class="accordion-content px-4 pb-4 space-y-2 text-xs text-gray-400">
+                        <div class="border-t border-gray-800 pt-3">
+                            <p><strong class="text-white">Full-Body Stretch:</strong> This is the recovery day — give the whole body attention. Spend 10-15 min total.</p>
+                            <p class="mt-2"><strong class="text-white">Sequence:</strong> Child's pose (60s), Pigeon pose (60s/side), Thoracic rotation (10/side), Chest doorway open (30s), Lat overhead stretch (30s/side), Hamstring seated stretch (45s), Hip flexor lunge (30s/side).</p>
+                            <p class="mt-2"><strong class="text-brand">Recovery:</strong> Full-body foam roll circuit. This is the day to do it properly — consistency in recovery is what keeps you training hard all 4 days.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======== TAB 4: MEALS ======== -->
+        <div id="tab-meals" class="px-4 py-6 space-y-5 tab-content">
+            <div class="bg-card p-4 rounded-xl border border-gray-800 flex justify-between items-center shadow-lg">
+                <div>
+                    <h3 class="text-brand font-black text-2xl tracking-tight">3,500 <span class="text-sm font-normal text-gray-400">kcal</span></h3>
+                    <p class="text-[10px] font-bold text-gray-300 uppercase">Daily Target</p>
+                </div>
+                <div class="text-right border-l border-gray-800 pl-4">
+                    <p class="text-sm font-mono font-bold text-white tracking-tighter">230P / 450C / 80F</p>
+                    <p class="text-[10px] text-gray-400 uppercase font-bold mt-1">Macros</p>
+                </div>
+            </div>
+            <div class="bg-brand/10 border border-brand/30 rounded-xl p-3 flex gap-3 items-center">
+                <i data-lucide="scale" class="text-brand w-5 h-5 shrink-0"></i>
+                <p class="text-[10px] text-gray-300 leading-snug">Adjust the exact meat and carb portions in the meals below to hit your specific macro targets above.</p>
+            </div>
+            <div class="bg-card rounded-2xl p-5 border border-gray-800/80 shadow-lg relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-brand/5 rounded-full blur-2xl -mr-8 -mt-8 pointer-events-none"></div>
+                <div class="flex items-center gap-3 mb-4 border-b border-gray-800 pb-3 relative z-10">
+                    <div class="bg-brand/20 p-2 rounded-lg"><i data-lucide="sunrise" class="text-brand w-5 h-5"></i></div>
+                    <h3 class="font-bold text-gray-100 text-lg">Meal 1</h3>
+                </div>
+                <div class="relative z-10">
+                    <p class="text-sm text-gray-200 mb-3"><strong class="text-white">Primary:</strong> 1c Egg Whites + 2 Whole Eggs, 1.5c Cream of Rice, 1c Greek Yogurt</p>
+                    <div class="bg-dark p-3 rounded-lg border border-gray-800 text-[11px] text-gray-400">
+                        <strong class="text-brand uppercase block mb-1">Alternatives:</strong>
+                        • 1.5c Oats + 1.5 Scoops Whey + 1c Berries<br>
+                        • 1.5c Cottage Cheese + 2 Toast w/ Jam
+                    </div>
+                </div>
+            </div>
+            <div class="bg-card rounded-2xl p-5 border border-gray-800/80 shadow-lg relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-brand/5 rounded-full blur-2xl -mr-8 -mt-8 pointer-events-none"></div>
+                <div class="flex items-center gap-3 mb-4 border-b border-gray-800 pb-3 relative z-10">
+                    <div class="bg-brand/20 p-2 rounded-lg"><i data-lucide="sun" class="text-brand w-5 h-5"></i></div>
+                    <h3 class="font-bold text-gray-100 text-lg">Meal 2</h3>
+                </div>
+                <div class="relative z-10">
+                    <p class="text-sm text-gray-200 mb-3"><strong class="text-white">Primary:</strong> 8oz Chicken or Shrimp, 2c Jasmine Rice, Asparagus</p>
+                    <div class="bg-dark p-3 rounded-lg border border-gray-800 text-[11px] text-gray-400">
+                        <strong class="text-brand uppercase block mb-1">Alternatives:</strong>
+                        • 8oz Lean Beef (93/7) + 2c Rice + Broccoli<br>
+                        • 8oz White Fish + 2c Rice + Green Beans
+                    </div>
+                </div>
+            </div>
+            <div class="bg-card rounded-2xl p-5 border border-brand/40 relative overflow-hidden shadow-[0_0_20px_rgba(229,255,0,0.08)]">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-brand/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+                <div class="flex items-center gap-3 mb-4 border-b border-gray-800 pb-3 relative z-10">
+                    <div class="bg-brand text-dark p-2 rounded-lg"><i data-lucide="battery-charging" class="w-5 h-5"></i></div>
+                    <h3 class="font-bold text-white text-lg">Pre-Workout</h3>
+                </div>
+                <div class="relative z-10">
+                    <p class="text-sm text-gray-200 mb-3"><strong class="text-white">Primary:</strong> Whey Isolate, 50g Cream of Rice, Banana, Honey, Salt</p>
+                    <div class="bg-dark p-3 rounded-lg border border-gray-800 text-[11px] text-gray-400">
+                        <strong class="text-brand uppercase block mb-1">Alternatives:</strong>
+                        • 2c Rice Krispies + Whey + 1c Skim Milk<br>
+                        • 3 Rice Cakes w/ Jam + Whey + Banana
+                    </div>
+                </div>
+            </div>
+            <div class="bg-card rounded-2xl p-5 border border-blue-500/40 relative overflow-hidden shadow-[0_0_20px_rgba(59,130,246,0.08)]">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+                <div class="flex items-center gap-3 mb-4 border-b border-gray-800 pb-3 relative z-10">
+                    <div class="bg-blue-500 text-dark p-2 rounded-lg"><i data-lucide="zap" class="w-5 h-5"></i></div>
+                    <h3 class="font-bold text-white text-lg">Intra-Workout</h3>
+                </div>
+                <div class="relative z-10">
+                    <p class="text-sm text-gray-200 mb-3"><strong class="text-white">Primary:</strong> 30g Carb Powder + 1 Scoop EAAs + 1 Electrolyte Pack in 32oz water</p>
+                    <div class="bg-dark p-3 rounded-lg border border-gray-800 text-[11px] text-gray-400">
+                        <strong class="text-blue-400 uppercase block mb-1">Alternatives:</strong>
+                        • 20oz Coconut Water + EAAs + Pink Salt<br>
+                        • 24oz Gatorade + 1 Scoop BCAA + Electrolyte Tablet
+                    </div>
+                </div>
+            </div>
+            <div class="bg-card rounded-2xl p-5 border border-emerald-500/40 shadow-lg relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl -mr-8 -mt-8 pointer-events-none"></div>
+                <div class="flex items-center gap-3 mb-4 border-b border-gray-800 pb-3 relative z-10">
+                    <div class="bg-emerald-500/20 p-2 rounded-lg"><i data-lucide="biceps-flexed" class="text-emerald-400 w-5 h-5"></i></div>
+                    <h3 class="font-bold text-gray-100 text-lg">Post-Workout</h3>
+                </div>
+                <div class="relative z-10">
+                    <p class="text-sm text-gray-200 mb-3"><strong class="text-white">Primary:</strong> 8oz Lean Turkey or White Fish, 3c White Rice (Zero Added Fat)</p>
+                    <div class="bg-dark p-3 rounded-lg border border-gray-800 text-[11px] text-gray-400">
+                        <strong class="text-emerald-400 uppercase block mb-1">Alternatives (Keep Fat Zero):</strong>
+                        • 8oz Cooked Shrimp + 3c White Rice<br>
+                        • 8oz Chicken Breast + 12oz White Potato
+                    </div>
+                </div>
+            </div>
+            <div class="bg-card rounded-2xl p-5 border border-gray-800/80 shadow-lg mb-8 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-brand/5 rounded-full blur-2xl -mr-8 -mt-8 pointer-events-none"></div>
+                <div class="flex items-center gap-3 mb-4 border-b border-gray-800 pb-3 relative z-10">
+                    <div class="bg-brand/20 p-2 rounded-lg"><i data-lucide="moon" class="text-brand w-5 h-5"></i></div>
+                    <h3 class="font-bold text-gray-100 text-lg">Meal 6</h3>
+                </div>
+                <div class="relative z-10">
+                    <p class="text-sm text-gray-200 mb-3"><strong class="text-white">Primary:</strong> 8oz Salmon or 93/7 Beef, 1c Rice, 1/2 Avocado</p>
+                    <div class="bg-dark p-3 rounded-lg border border-gray-800 text-[11px] text-gray-400">
+                        <strong class="text-brand uppercase block mb-1">Alternatives:</strong>
+                        • 8oz Sirloin Steak + 1c Rice + Spinach<br>
+                        • 8oz Ground Turkey + 1c Rice + 1oz Mixed Nuts
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <button id="backToTopBtn" onclick="scrollToTop()" class="absolute bottom-6 right-4 bg-brand text-dark p-3 rounded-full shadow-lg opacity-0 pointer-events-none transition-opacity duration-300 z-50 hover:bg-yellow-400">
+        <i data-lucide="arrow-up" class="w-5 h-5"></i>
+    </button>
+
+</div>
+
+<script>
+    lucide.createIcons();
+
+    document.addEventListener("DOMContentLoaded", () => {
+        restoreSessionState();
+        registerServiceWorker();
+    });
+
+    function registerServiceWorker() {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('SW active.', reg))
+                .catch(err => console.warn('SW failed.', err));
         }
+    }
 
-        function restoreSessionState() {
-            const activeTab = localStorage.getItem('ironActiveTab') || 'workout';
-            switchTab(activeTab);
-            setTimeout(() => {
-                ['w', 'p', 'c'].forEach(type => {
-                    const savedId = localStorage.getItem('ironAccordion_' + type);
-                    if (savedId) {
-                        const prefix = type === 'w' ? 'content-w-' : type === 'c' ? 'content-c-' : 'content-p-';
-                        const iconPrefix = type === 'w' ? 'icon-w-' : type === 'c' ? 'icon-c-' : 'icon-p-';
-                        const content = document.getElementById(prefix + savedId);
-                        const icon = document.getElementById(iconPrefix + savedId);
-                        if (content && icon) {
-                            content.classList.add('expanded');
-                            icon.classList.add('rotated');
-                        }
-                    }
-                });
-            }, 50);
-        }
-
-        function toggleAccordion(type, id) {
-            let prefix = type === 'w' ? 'content-w-' : type === 'c' ? 'content-c-' : 'content-p-';
-            let iconPrefix = type === 'w' ? 'icon-w-' : type === 'c' ? 'icon-c-' : 'icon-p-';
-            let openedId = null;
-            
-            for (let i = 1; i <= 5; i++) {
-                const content = document.getElementById(prefix + i);
-                const icon = document.getElementById(iconPrefix + i);
-                if (content && icon) {
-                    if (i === id) {
-                        content.classList.toggle('expanded');
-                        icon.classList.toggle('rotated');
-                        if (content.classList.contains('expanded')) openedId = id;
-                    } else {
-                        content.classList.remove('expanded');
-                        icon.classList.remove('rotated');
-                    }
-                }
-            }
-            
-            if (openedId) {
-                localStorage.setItem('ironAccordion_' + type, openedId);
-            } else {
-                localStorage.removeItem('ironAccordion_' + type);
-            }
-        }
-
-        function switchTab(tabId) {
-            localStorage.setItem('ironActiveTab', tabId);
-            const tabs = ['warmup', 'workout', 'cooldown', 'meals'];
-            tabs.forEach(t => {
-                const el = document.getElementById('tab-' + t);
-                const btn = document.getElementById('btn-' + t);
-                if (t === tabId) {
-                    el.style.display = 'block';
-                    setTimeout(() => el.classList.add('active'), 20);
-                    btn.classList.add('border-brand', 'text-brand');
-                    btn.classList.remove('border-transparent', 'text-gray-500');
-                } else {
-                    el.classList.remove('active');
-                    el.style.display = 'none';
-                    btn.classList.remove('border-brand', 'text-brand');
-                    btn.classList.add('border-transparent', 'text-gray-500');
+    function restoreSessionState() {
+        const activeTab = localStorage.getItem('ironActiveTab') || 'workout';
+        switchTab(activeTab);
+        setTimeout(() => {
+            ['w','p','c'].forEach(type => {
+                const savedId = localStorage.getItem('ironAccordion_' + type);
+                if (savedId) {
+                    const prefix = type === 'w' ? 'content-w-' : type === 'c' ? 'content-c-' : 'content-p-';
+                    const iconPrefix = type === 'w' ? 'icon-w-' : type === 'c' ? 'icon-c-' : 'icon-p-';
+                    const content = document.getElementById(prefix + savedId);
+                    const icon = document.getElementById(iconPrefix + savedId);
+                    if (content && icon) { content.classList.add('expanded'); icon.classList.add('rotated'); }
                 }
             });
-            scrollToTop();
+        }, 50);
+    }
+
+    function toggleAccordion(type, id) {
+        const prefix = type === 'w' ? 'content-w-' : type === 'c' ? 'content-c-' : 'content-p-';
+        const iconPrefix = type === 'w' ? 'icon-w-' : type === 'c' ? 'icon-c-' : 'icon-p-';
+        let openedId = null;
+        for (let i = 1; i <= 5; i++) {
+            const content = document.getElementById(prefix + i);
+            const icon = document.getElementById(iconPrefix + i);
+            if (content && icon) {
+                if (i === id) {
+                    content.classList.toggle('expanded');
+                    icon.classList.toggle('rotated');
+                    if (content.classList.contains('expanded')) openedId = id;
+                } else {
+                    content.classList.remove('expanded');
+                    icon.classList.remove('rotated');
+                }
+            }
         }
+        if (openedId) { localStorage.setItem('ironAccordion_' + type, openedId); }
+        else { localStorage.removeItem('ironAccordion_' + type); }
+    }
 
-        const scrollContainer = document.getElementById('scroll-container');
-        const backToTopBtn = document.getElementById('backToTopBtn');
-
-        scrollContainer.addEventListener('scroll', () => {
-            if (scrollContainer.scrollTop > 300) {
-                backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
-                backToTopBtn.classList.add('opacity-100');
+    function switchTab(tabId) {
+        localStorage.setItem('ironActiveTab', tabId);
+        ['warmup','workout','cooldown','meals'].forEach(t => {
+            const el = document.getElementById('tab-' + t);
+            const btn = document.getElementById('btn-' + t);
+            if (t === tabId) {
+                el.style.display = 'block';
+                setTimeout(() => el.classList.add('active'), 20);
+                btn.classList.add('border-brand','text-brand');
+                btn.classList.remove('border-transparent','text-gray-500');
             } else {
-                backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
-                backToTopBtn.classList.remove('opacity-100');
+                el.classList.remove('active');
+                el.style.display = 'none';
+                btn.classList.remove('border-brand','text-brand');
+                btn.classList.add('border-transparent','text-gray-500');
             }
         });
+        scrollToTop();
+    }
 
-        function scrollToTop() {
-            scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
+    const scrollContainer = document.getElementById('scroll-container');
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    scrollContainer.addEventListener('scroll', () => {
+        if (scrollContainer.scrollTop > 300) {
+            backToTopBtn.classList.remove('opacity-0','pointer-events-none');
+            backToTopBtn.classList.add('opacity-100');
+        } else {
+            backToTopBtn.classList.add('opacity-0','pointer-events-none');
+            backToTopBtn.classList.remove('opacity-100');
         }
-    </script>
+    });
+
+    function scrollToTop() { scrollContainer.scrollTo({ top: 0, behavior: 'smooth' }); }
+</script>
 </body>
 </html>
